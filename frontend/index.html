@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signify | ASL Recognition</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background decorations -->
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+    <div class="background-grid"></div>
+
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">🤟</span>
+            <span>Signify</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#recognize">Recognize</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#about">About</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Hero -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    <span class="status-dot"></span>
+                    AI-Powered ASL Recognition
+                </div>
+
+                <h1>
+                    Turn signs into
+                    <span>language.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Upload an image of an American Sign Language hand sign
+                    and let our AI identify the corresponding alphabet letter.
+                </p>
+
+                <div class="alphabet-decoration">
+                    <span>A</span>
+                    <span>S</span>
+                    <span>L</span>
+                    <span>AI</span>
+                </div>
+
+            </div>
+
+
+            <!-- Recognition Card -->
+            <div class="recognition-card" id="recognize">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="eyebrow">IMAGE RECOGNITION</p>
+                        <h2>Show us a sign</h2>
+                    </div>
+
+                    <div class="ai-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <!-- Upload area -->
+                <div class="upload-area" id="uploadArea">
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/*"
+                        hidden
+                    >
+
+                    <div class="upload-content" id="uploadContent">
+
+                        <div class="upload-icon">
+                            <span>↑</span>
+                        </div>
+
+                        <h3>Upload your sign</h3>
+
+                        <p>
+                            Drag and drop an image here
+                            <br>
+                            or
+                            <span class="browse-text">browse your files</span>
+                        </p>
+
+                        <small>
+                            PNG, JPG or JPEG
+                        </small>
+
+                    </div>
+
+
+                    <!-- Image preview -->
+                    <div class="preview-container" id="previewContainer">
+
+                        <img
+                            id="preview"
+                            src=""
+                            alt="Uploaded ASL sign"
+                        >
+
+                        <button
+                            class="remove-button"
+                            id="removeButton"
+                            type="button"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Predict button -->
+                <button
+                    class="predict-button"
+                    id="predictBtn"
+                    type="button"
+                    disabled
+                >
+
+                    <span class="button-icon">✦</span>
+
+                    <span>Analyze Sign</span>
+
+                    <span class="arrow">→</span>
+
+                </button>
+
+
+                <!-- Loading -->
+                <div class="loading" id="loading">
+
+                    <div class="loader"></div>
+
+                    <p>Analyzing your sign...</p>
+
+                </div>
+
+
+                <!-- Result -->
+                <div class="result-card" id="resultCard">
+
+                    <div class="result-label">
+                        PREDICTION
+                    </div>
+
+                    <div class="prediction-letter" id="prediction">
+                        A
+                    </div>
+
+                    <div class="confidence-container">
+
+                        <div class="confidence-info">
+
+                            <span>Confidence</span>
+
+                            <strong id="confidence">
+                                98.6%
+                            </strong>
+
+                        </div>
+
+                        <div class="confidence-bar">
+
+                            <div
+                                class="confidence-progress"
+                                id="confidenceProgress"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- How it works -->
+        <section class="how-section" id="how-it-works">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">HOW IT WORKS</p>
+
+                <h2>
+                    From image to
+                    <span>meaning.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        ↑
+                    </div>
+
+                    <h3>Upload</h3>
+
+                    <p>
+                        Choose a clear image of an ASL alphabet
+                        hand sign.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+                        ✦
+                    </div>
+
+                    <h3>Analyze</h3>
+
+                    <p>
+                        Our trained machine learning model
+                        analyzes the image.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        ✓
+                    </div>
+
+                    <h3>Understand</h3>
+
+                    <p>
+                        Receive the predicted ASL alphabet
+                        letter and confidence score.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Alphabet -->
+        <section class="alphabet-section">
+
+            <div class="alphabet-header">
+
+                <div>
+                    <p class="eyebrow">THE ALPHABET</p>
+
+                    <h2>
+                        26 letters.
+                        <span>One language.</span>
+                    </h2>
+                </div>
+
+                <p>
+                    Our model is designed to recognize
+                    static ASL alphabet signs.
+                </p>
+
+            </div>
+
+
+            <div class="alphabet-grid" id="alphabetGrid">
+                <!-- Generated by JavaScript -->
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer id="about">
+
+        <div class="footer-logo">
+            🤟 Signify
+        </div>
+
+        <p>
+            An AI-powered American Sign Language
+            alphabet recognition project.
+        </p>
+
+        <span>
+            Built for CS254 • Intro to AI
+        </span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
