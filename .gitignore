@@ -1,16 +1,1 @@
-# Python
-__pycache__/
-*.pyc
-
-# Virtual Environment
-.venv/
-
-# macOS
-.DS_Store
-
-# VS Code
-.vscode/
-
-# Uploaded Images
-uploads/*
-!uploads/.gitkeep
+.env
