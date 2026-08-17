@@ -1,13 +1,15 @@
-import torch
-import torch.nn as nn
-from torchvision import transforms
-from PIL import Image
 from pathlib import Path
 
+import numpy as np
+import torch
+from PIL import Image
+from rembg import new_session, remove
+from torch import nn
+from torchvision import transforms
 
-# --------------------------------------------------
-# Model architecture
-# --------------------------------------------------
+
+class NoHandDetectedError(Exception):
+    """Raised when no hand can be found in the uploaded image."""
 
 
 class ASLCNN(nn.Module):
@@ -46,19 +48,11 @@ class ASLCNN(nn.Module):
         return x
 
 
-# --------------------------------------------------
-# Device
-# --------------------------------------------------
-
 if torch.backends.mps.is_available():
     device = torch.device("mps")
 else:
     device = torch.device("cpu")
 
-
-# --------------------------------------------------
-# Classes
-# --------------------------------------------------
 
 CLASSES = [
     "a",
@@ -90,18 +84,10 @@ CLASSES = [
 ]
 
 
-# --------------------------------------------------
-# Model path
-# --------------------------------------------------
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MODEL_PATH = BASE_DIR / "model" / "best_asl_model2026-08-12T18_59_20.037038.pth.zip"
 
-
-# --------------------------------------------------
-# Load model
-# --------------------------------------------------
 
 model = ASLCNN(num_classes=len(CLASSES))
 
@@ -115,10 +101,46 @@ model.eval()
 print(f"ASL model loaded successfully on {device}")
 
 
-# --------------------------------------------------
-# Image preprocessing
-# Same preprocessing used for testing
-# --------------------------------------------------
+# Segmentation
+segmentation_session = new_session("u2netp")
+
+ALPHA_THRESHOLD = 128
+CROP_PADDING_RATIO = 0.05
+MIN_SUBJECT_AREA_RATIO = 0.02
+
+
+def segment_and_crop(image):
+    rgba = remove(image.convert("RGB"), session=segmentation_session)
+
+    alpha = np.array(rgba.split()[-1])
+    ys, xs = np.where(alpha > ALPHA_THRESHOLD)
+
+    if len(xs) < MIN_SUBJECT_AREA_RATIO * alpha.size:
+        raise NoHandDetectedError(
+            "No hand detected in the uploaded image. Try a clearer photo "
+            "with the hand filling more of the frame."
+        )
+
+    x_min, x_max = int(xs.min()), int(xs.max())
+    y_min, y_max = int(ys.min()), int(ys.max())
+
+    pad_x = int((x_max - x_min) * CROP_PADDING_RATIO)
+    pad_y = int((y_max - y_min) * CROP_PADDING_RATIO)
+
+    x_min = max(0, x_min - pad_x)
+    y_min = max(0, y_min - pad_y)
+    x_max = min(rgba.width, x_max + pad_x)
+    y_max = min(rgba.height, y_max + pad_y)
+
+    cropped = rgba.crop((x_min, y_min, x_max, y_max))
+
+    side = max(cropped.width, cropped.height)
+    black_background = Image.new("RGB", (side, side), (0, 0, 0))
+    offset = ((side - cropped.width) // 2, (side - cropped.height) // 2)
+    black_background.paste(cropped, offset, mask=cropped.split()[-1])
+
+    return black_background
+
 
 test_transform = transforms.Compose(
     [
@@ -130,11 +152,6 @@ test_transform = transforms.Compose(
 )
 
 
-# --------------------------------------------------
-# Prediction function
-# --------------------------------------------------
-
-
 def predict_image(image_path):
     """
     Takes an image path and returns the predicted
@@ -142,6 +159,8 @@ def predict_image(image_path):
     """
 
     image = Image.open(image_path)
+
+    image = segment_and_crop(image)
 
     image = test_transform(image)
 
@@ -155,13 +174,17 @@ def predict_image(image_path):
 
         probabilities = torch.softmax(outputs, dim=1)
 
-        confidence, predicted_index = torch.max(probabilities, dim=1)
+        top_probs, top_indices = torch.topk(probabilities, k=3)
 
-    predicted_letter = CLASSES[predicted_index.item()]
+    top3 = [
+        (CLASSES[index.item()], probability.item() * 100)
+        for probability, index in zip(top_probs[0], top_indices[0])
+    ]
 
-    confidence_percentage = confidence.item() * 100
+    predicted_letter, confidence_percentage = top3[0]
 
     return {
         "prediction": predicted_letter,
         "confidence": round(confidence_percentage, 2),
+        "top3": top3,
     }
