@@ -180,14 +180,35 @@ uploadArea.addEventListener("drop", (event) => {
 
     const file = event.dataTransfer.files[0];
 
-    if (file) {
 
-        displayImage(file);
+    if (!file) {
+
+        return;
 
     }
 
-});
 
+    if (!file.type.startsWith("image/")) {
+
+        alert("Please select an image file.");
+
+        return;
+
+    }
+
+
+    // Add the dropped file to the file input
+    const dataTransfer = new DataTransfer();
+
+    dataTransfer.items.add(file);
+
+    imageInput.files = dataTransfer.files;
+
+
+    // Display the dropped image
+    displayImage(file);
+
+});
 
 
 /* =========================
