@@ -145,6 +145,8 @@ removeButton.addEventListener("click", (event) => {
 
     resultCard.classList.remove("active");
 
+    confidenceProgress.style.width = "0%";
+
 });
 
 
@@ -192,9 +194,11 @@ uploadArea.addEventListener("drop", (event) => {
    PREDICT BUTTON
 ========================= */
 
-predictBtn.addEventListener("click", () => {
+predictBtn.addEventListener("click", async () => {
 
-    if (!imageInput.files[0]) {
+    const file = imageInput.files[0];
+
+    if (!file) {
 
         return;
 
@@ -208,51 +212,97 @@ predictBtn.addEventListener("click", () => {
     predictBtn.disabled = true;
 
 
-    /*
-        TEMPORARY DEMO
+    // Create form data for the Flask backend
 
-        This will later be replaced with
-        a request to our Python backend.
+    const formData = new FormData();
 
-        Example:
+    formData.append("image", file);
 
-        fetch("http://localhost:5000/predict", {
+
+    try {
+
+        // Send image to the Python backend
+
+        const response = await fetch("/predict", {
+
             method: "POST",
+
             body: formData
-        })
-    */
+
+        });
 
 
-    setTimeout(() => {
+        // Convert response to JSON
+
+        const data = await response.json();
+
+
+        // Check for backend errors
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error || "Prediction failed."
+            );
+
+        }
+
+
+        // Get prediction from the model
+
+        const predictedLetter =
+            data.prediction.toUpperCase();
+
+
+        const predictedConfidence =
+            data.confidence;
+
+
+        // Display prediction
+
+        prediction.textContent =
+            predictedLetter;
+
+
+        // Display confidence
+
+        confidence.textContent =
+            `${predictedConfidence}%`;
+
+
+        // Show result card
+
+        resultCard.classList.add("active");
+
+
+        // Animate confidence bar
+
+        setTimeout(() => {
+
+            confidenceProgress.style.width =
+                `${predictedConfidence}%`;
+
+        }, 100);
+
+
+    } catch (error) {
+
+        console.error(
+            "Prediction error:",
+            error
+        );
+
+
+        alert(
+            "Unable to get a prediction. Please make sure the backend is running."
+        );
+
+    } finally {
 
         loading.classList.remove("active");
 
         predictBtn.disabled = false;
 
-
-        // Temporary demonstration result
-        const demoLetter = "A";
-
-        const demoConfidence = 98.6;
-
-
-        prediction.textContent = demoLetter;
-
-        confidence.textContent =
-            `${demoConfidence}%`;
-
-
-        resultCard.classList.add("active");
-
-
-        setTimeout(() => {
-
-            confidenceProgress.style.width =
-                `${demoConfidence}%`;
-
-        }, 100);
-
-
-    }, 1500);
+    }
 
 });
