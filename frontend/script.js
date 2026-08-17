@@ -34,11 +34,18 @@ const confidenceProgress =
 const alphabetGrid =
     document.getElementById("alphabetGrid");
 
+const practiceLetter =
+    document.getElementById("practiceLetter");
+
+const feedbackBox =
+    document.getElementById("feedbackBox");
+
+const feedbackText =
+    document.getElementById("feedbackText");
 
 
-/* =========================
-   CREATE ALPHABET
-========================= */
+
+
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -55,10 +62,20 @@ alphabet.split("").forEach(letter => {
 });
 
 
+alphabet.split("").forEach(letter => {
 
-/* =========================
-   OPEN FILE SELECTOR
-========================= */
+    const option = document.createElement("option");
+
+    option.value = letter;
+
+    option.textContent = letter;
+
+    practiceLetter.appendChild(option);
+
+});
+
+
+
 
 uploadArea.addEventListener("click", () => {
 
@@ -68,9 +85,6 @@ uploadArea.addEventListener("click", () => {
 
 
 
-/* =========================
-   IMAGE SELECTION
-========================= */
 
 imageInput.addEventListener("change", (event) => {
 
@@ -86,9 +100,6 @@ imageInput.addEventListener("change", (event) => {
 
 
 
-/* =========================
-   DISPLAY IMAGE
-========================= */
 
 function displayImage(file) {
 
@@ -125,9 +136,6 @@ function displayImage(file) {
 
 
 
-/* =========================
-   REMOVE IMAGE
-========================= */
 
 removeButton.addEventListener("click", (event) => {
 
@@ -145,15 +153,15 @@ removeButton.addEventListener("click", (event) => {
 
     resultCard.classList.remove("active");
 
+    feedbackBox.classList.remove("active");
+
     confidenceProgress.style.width = "0%";
 
 });
 
 
 
-/* =========================
-   DRAG AND DROP
-========================= */
+
 
 uploadArea.addEventListener("dragover", (event) => {
 
@@ -211,9 +219,6 @@ uploadArea.addEventListener("drop", (event) => {
 });
 
 
-/* =========================
-   PREDICT BUTTON
-========================= */
 
 predictBtn.addEventListener("click", async () => {
 
@@ -238,6 +243,12 @@ predictBtn.addEventListener("click", async () => {
     const formData = new FormData();
 
     formData.append("image", file);
+
+    if (practiceLetter.value) {
+
+        formData.append("letter", practiceLetter.value);
+
+    }
 
 
     try {
@@ -289,6 +300,21 @@ predictBtn.addEventListener("click", async () => {
 
         confidence.textContent =
             `${predictedConfidence}%`;
+
+
+        // Display coaching feedback, if the backend generated any
+
+        if (data.feedback) {
+
+            feedbackText.textContent = data.feedback;
+
+            feedbackBox.classList.add("active");
+
+        } else {
+
+            feedbackBox.classList.remove("active");
+
+        }
 
 
         // Show result card

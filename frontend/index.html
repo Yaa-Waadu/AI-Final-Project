@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,15 +84,22 @@
                 </div>
 
 
+                <!-- Practice letter (optional) -->
+                <div class="practice-select">
+
+                    <label for="practiceLetter">Practicing a letter? (optional)</label>
+
+                    <select id="practiceLetter">
+                        <option value="">Just tell me what it is</option>
+                    </select>
+
+                </div>
+
+
                 <!-- Upload area -->
                 <div class="upload-area" id="uploadArea">
 
-                    <input
-                        type="file"
-                        id="imageInput"
-                        accept="image/*"
-                        hidden
-                    >
+                    <input type="file" id="imageInput" accept="image/*" hidden>
 
                     <div class="upload-content" id="uploadContent">
 
@@ -118,17 +126,9 @@
                     <!-- Image preview -->
                     <div class="preview-container" id="previewContainer">
 
-                        <img
-                            id="preview"
-                            src=""
-                            alt="Uploaded ASL sign"
-                        >
+                        <img id="preview" src="" alt="Uploaded ASL sign">
 
-                        <button
-                            class="remove-button"
-                            id="removeButton"
-                            type="button"
-                        >
+                        <button class="remove-button" id="removeButton" type="button">
                             ×
                         </button>
 
@@ -138,12 +138,7 @@
 
 
                 <!-- Predict button -->
-                <button
-                    class="predict-button"
-                    id="predictBtn"
-                    type="button"
-                    disabled
-                >
+                <button class="predict-button" id="predictBtn" type="button" disabled>
 
                     <span class="button-icon">✦</span>
 
@@ -189,13 +184,16 @@
 
                         <div class="confidence-bar">
 
-                            <div
-                                class="confidence-progress"
-                                id="confidenceProgress"
-                            ></div>
+                            <div class="confidence-progress" id="confidenceProgress"></div>
 
                         </div>
 
+                    </div>
+
+
+                    <!-- Coaching feedback -->
+                    <div class="feedback-box" id="feedbackBox">
+                        <p id="feedbackText"></p>
                     </div>
 
                 </div>
@@ -339,4 +337,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>

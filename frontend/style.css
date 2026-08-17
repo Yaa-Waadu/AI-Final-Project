@@ -417,6 +417,53 @@ body {
 
 
 /* =========================
+   PRACTICE LETTER SELECT
+========================= */
+
+.practice-select {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+
+.practice-select label {
+    color: #68677c;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.practice-select select {
+    padding: 8px 12px;
+
+    border: 1px solid #d8d3ea;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #15152b;
+
+    font-family: "DM Sans";
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================
    UPLOAD AREA
 ========================= */
 
@@ -822,6 +869,48 @@ body {
     );
 
     transition: width 1s ease;
+}
+
+
+/* =========================
+   COACHING FEEDBACK
+========================= */
+
+.feedback-box {
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 16px 18px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(113, 87, 232, 0.18);
+
+    background: rgba(255, 255, 255, 0.7);
+
+    text-align: left;
+}
+
+
+.feedback-box.active {
+    display: block;
+
+    animation: resultAppear 0.5s ease;
+}
+
+
+.feedback-box p {
+    color: #4a4759;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+.feedback-box p::before {
+    content: "🤟 ";
 }
 
 
