@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 
-/* =========================
-   RESET
-========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -25,25 +21,18 @@ body {
     color: #15152b;
 
     background:
-        radial-gradient(
-            circle at 10% 10%,
+        radial-gradient(circle at 10% 10%,
             rgba(129, 90, 255, 0.15),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 20%,
+            transparent 30%),
+        radial-gradient(circle at 90% 20%,
             rgba(45, 212, 191, 0.12),
-            transparent 28%
-        ),
+            transparent 28%),
         #f8f7ff;
 
     overflow-x: hidden;
 }
 
 
-/* =========================
-   BACKGROUND
-========================= */
 
 .background-grid {
     position: fixed;
@@ -55,23 +44,17 @@ body {
     opacity: 0.35;
 
     background-image:
-        linear-gradient(
+        linear-gradient(rgba(80, 70, 150, 0.05) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
             rgba(80, 70, 150, 0.05) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(80, 70, 150, 0.05) 1px,
-            transparent 1px
-        );
+            transparent 1px);
 
     background-size: 50px 50px;
 
-    mask-image: linear-gradient(
-        to bottom,
-        black,
-        transparent 80%
-    );
+    mask-image: linear-gradient(to bottom,
+            black,
+            transparent 80%);
 }
 
 
@@ -109,10 +92,6 @@ body {
     top: 500px;
 }
 
-
-/* =========================
-   NAVBAR
-========================= */
 
 .navbar {
     width: min(1200px, 90%);
@@ -190,10 +169,6 @@ body {
 }
 
 
-/* =========================
-   HERO
-========================= */
-
 .hero {
     width: min(1200px, 90%);
 
@@ -266,12 +241,10 @@ body {
 .hero h1 span {
     display: block;
 
-    background: linear-gradient(
-        100deg,
-        #7157e8,
-        #a45de9,
-        #35bfae
-    );
+    background: linear-gradient(100deg,
+            #7157e8,
+            #a45de9,
+            #35bfae);
 
     -webkit-background-clip: text;
 
@@ -343,10 +316,6 @@ body {
 }
 
 
-/* =========================
-   RECOGNITION CARD
-========================= */
-
 .recognition-card {
     position: relative;
 
@@ -416,9 +385,6 @@ body {
 }
 
 
-/* =========================
-   PRACTICE LETTER SELECT
-========================= */
 
 .practice-select {
     display: flex;
@@ -463,10 +429,6 @@ body {
 }
 
 
-/* =========================
-   UPLOAD AREA
-========================= */
-
 .upload-area {
     position: relative;
 
@@ -483,11 +445,9 @@ body {
     border-radius: 22px;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(247, 245, 255, 0.9),
-            rgba(239, 252, 250, 0.7)
-        );
+            rgba(239, 252, 250, 0.7));
 
     cursor: pointer;
 
@@ -500,11 +460,9 @@ body {
     border-color: #8068e9;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(241, 237, 255, 1),
-            rgba(234, 251, 248, 1)
-        );
+            rgba(234, 251, 248, 1));
 
     transform: translateY(-2px);
 }
@@ -576,9 +534,6 @@ body {
 }
 
 
-/* =========================
-   PREVIEW
-========================= */
 
 .preview-container {
     display: none;
@@ -631,9 +586,6 @@ body {
 }
 
 
-/* =========================
-   PREDICT BUTTON
-========================= */
 
 .predict-button {
     width: 100%;
@@ -694,9 +646,7 @@ body {
 }
 
 
-/* =========================
-   LOADING
-========================= */
+
 
 .loading {
     display: none;
@@ -746,9 +696,6 @@ body {
 }
 
 
-/* =========================
-   RESULT
-========================= */
 
 .result-card {
     display: none;
@@ -760,11 +707,9 @@ body {
     border-radius: 20px;
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             #f1edff,
-            #e8faf7
-        );
+            #e8faf7);
 
     text-align: center;
 }
@@ -812,11 +757,9 @@ body {
 
     font-weight: 700;
 
-    background: linear-gradient(
-        135deg,
-        #7157e8,
-        #2fb8a7
-    );
+    background: linear-gradient(135deg,
+            #7157e8,
+            #2fb8a7);
 
     -webkit-background-clip: text;
 
@@ -849,7 +792,7 @@ body {
 
     border-radius: 20px;
 
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
 
     overflow: hidden;
 }
@@ -862,19 +805,14 @@ body {
 
     border-radius: inherit;
 
-    background: linear-gradient(
-        90deg,
-        #7157e8,
-        #36c3ae
-    );
+    background: linear-gradient(90deg,
+            #7157e8,
+            #36c3ae);
 
     transition: width 1s ease;
 }
 
 
-/* =========================
-   COACHING FEEDBACK
-========================= */
 
 .feedback-box {
     display: none;
@@ -913,10 +851,6 @@ body {
     content: "🤟 ";
 }
 
-
-/* =========================
-   HOW IT WORKS
-========================= */
 
 .how-section {
     width: min(1100px, 90%);
@@ -1040,11 +974,6 @@ body {
     line-height: 1.7;
 }
 
-
-/* =========================
-   ALPHABET
-========================= */
-
 .alphabet-section {
     width: min(1200px, 90%);
 
@@ -1081,7 +1010,7 @@ body {
 }
 
 
-.alphabet-header > p {
+.alphabet-header>p {
     max-width: 300px;
 
     color: #858297;
@@ -1140,10 +1069,6 @@ body {
 }
 
 
-/* =========================
-   FOOTER
-========================= */
-
 footer {
     padding: 50px 5%;
 
@@ -1151,7 +1076,7 @@ footer {
 
     border-top: 1px solid #e7e4ef;
 
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -1184,9 +1109,6 @@ footer span {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 900px) {
 
@@ -1231,7 +1153,7 @@ footer span {
         display: block;
     }
 
-    .alphabet-header > p {
+    .alphabet-header>p {
         margin-top: 15px;
     }
 
